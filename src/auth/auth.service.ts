@@ -38,10 +38,10 @@ export class AuthService {
     }).toPromise();
 
     const { headers, data } = response;
-    const { error, payload } = data;
+    const { error } = data;
 
     if (error === null) {
-      const [_origin, phpSession] = /(.*);.*/.exec(headers['set-cookie'][0]);
+      const [, phpSession] = /(.*);.*/.exec(headers['set-cookie'][0]);
       const session: AuthSession = this.startSession(phpSession);
 
       return {

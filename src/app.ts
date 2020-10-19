@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { PricesModule } from './prices/prices.module';
+import { RequestProxyModule } from './requestProxy/requestProxy.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [AuthModule, PricesModule],
+  imports: [AuthModule, RequestProxyModule],
   controllers: [],
   providers: []
 })

@@ -1,19 +1,18 @@
 import { HttpService, Injectable } from '@nestjs/common';
-import { ProductsDto } from './prices.model';
 import { Request } from '../models/request';
 import { AuthService } from '../auth/auth.service';
 import { BACKEND_URI } from '../constants';
 
 @Injectable()
-export class PricesService {
+export class RequestProxyService {
   constructor(private httpService: HttpService, private authService: AuthService) {}
 
-  async getProducts(accessToken: string): Promise<Request<ProductsDto> | any> {
+  async get(accessToken: string, proxyPath: string): Promise<Request<any> | any> {
     const session = this.authService.getPhpSession(accessToken);
 
-    const response = await this.httpService.request<Request<ProductsDto>>({
+    const response = await this.httpService.request<Request<any>>({
       method: 'GET',
-      url: `${BACKEND_URI}/prices/products`,
+      url: `${BACKEND_URI}${proxyPath}`,
       params: {
         extended: true
       },
